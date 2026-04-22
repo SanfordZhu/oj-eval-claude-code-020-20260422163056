@@ -52,8 +52,10 @@ int main() {
         printf("Phase 4: return pages\n");
         tCnt = 0;
         q = p;
-        ok(PTR_ERR(return_pages(NULL)) == -EINVAL);
-        ok(PTR_ERR(return_pages(p + TESTSIZE * 1024 * 1024 + 16)) == -EINVAL);
+        ret = return_pages(NULL);
+        ok(ret == -EINVAL);
+        ret = return_pages(p + TESTSIZE * 1024 * 1024 + 16);
+        ok(ret == -EINVAL);
         for (pgIdx = 0; pgIdx < MAXRANK0PAGE; pgIdx++, q = q + 1024 * 4) {
             ret = return_pages(q);
             dotOk(ret == OK);
